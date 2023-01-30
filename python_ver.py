@@ -41,3 +41,4 @@ else:
   password = generate_password(length, "default")
 
 print("Generated password:", password)
+input("Press Enter to Exit")
