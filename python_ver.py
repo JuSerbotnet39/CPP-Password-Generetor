@@ -2,28 +2,42 @@ import random
 import string
 
 
-def generate_password(length, charset=string.ascii_letters + string.digits + string.punctuation):
-    return ''.join(random.choice(charset) for i in range(length))
+def generate_password(length, format="default"):
+  charset = ""
+
+  if format == "default":
+    charset = string.ascii_letters + string.digits + string.punctuation
+  elif format == "easy":
+    charset = string.ascii_letters + string.digits
+  elif format == "letters_only":
+    charset = string.ascii_letters
+  elif format == "digits_only":
+    charset = string.digits
+
+  password = "".join(random.choice(charset) for i in range(length))
+
+  return password
 
 
-def get_length():
-    while True:
-        try:
-            length = int(input("Enter the password length (minimum 6):\n"))
-            if length >= 6:
-                return length
-            print("Password length must be at least 6.")
-        except ValueError:
-            print("Invalid input. Please enter a valid integer.")
+length = int(input("Enter the password length (minimum 6):\n"))
 
+print("Choose password format:")
+print("1. Default (letters, digits, and symbols)")
+print("2. Easy (letters and digits only)")
+print("3. Letters only")
+print("4. Digits only")
 
-def get_charset():
-    charset = input("Enter a custom character set (optional):\n")
-    return charset if charset else string.ascii_letters + string.digits + string.punctuation
+format = int(input("Enter your choice (1-4):\n"))
 
+if format == 1:
+  password = generate_password(length, "default")
+elif format == 2:
+  password = generate_password(length, "easy")
+elif format == 3:
+  password = generate_password(length, "letters_only")
+elif format == 4:
+  password = generate_password(length, "digits_only")
+else:
+  password = generate_password(length, "default")
 
-if __name__ == '__main__':
-    length = get_length()
-    charset = get_charset()
-    password = generate_password(length, charset)
-    print("Generated password:", password)
+print("Generated password:", password)
