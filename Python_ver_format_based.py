@@ -11,15 +11,15 @@ def generatePassword(format):
         group = group_match.group("group")
         length = int(group_match.group("length"))
         if group == "symbols":
-            chars = "#$%&*+-/:;<=>?@[\]^_`{|}~"
+            chars = "!@#$%^&*"
         elif group == "numbers":
             chars = "0123456789"
-        elif group == "lccharacters":
+        elif group == "lcharacters":
             chars = "abcdefghijklmnopqrstuvwxyz"
         elif group == "ucharacters":
             chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         else:
-            chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&*+-/:;<=>?@[\]^_`{|}~"
+            chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*"
         for i in range(length):
             password += random.choice(chars)
         start = group_match.end()
@@ -27,5 +27,6 @@ def generatePassword(format):
     return password
 
 
-format = input("Enter custom format (e.g. a[symbols(1)]b[numbers(1)]):\n")
+format = input("Enter custom format (e.g. <input>[symbols(1)]<input>[numbers(1)]<input>[lcharacters]<input>[ucharacters]):\n")
 print("Generated password: ", generatePassword(format))
+input("Press Enter to Exit")
